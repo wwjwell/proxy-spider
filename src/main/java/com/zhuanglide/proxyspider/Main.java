@@ -9,8 +9,8 @@ import com.zhuanglide.proxyspider.utils.ProxyCheck;
  */
 public class Main {
     public static void main(String[] args) {
-        new XiciTask().run();
-        new YouDailiTask().run();
+//        new XiciTask().run();
+//        new YouDailiTask().run();
         ProxyCheck.check();
     }
 }
