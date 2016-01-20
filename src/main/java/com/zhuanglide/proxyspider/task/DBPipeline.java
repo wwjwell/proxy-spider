@@ -20,7 +20,7 @@ public class DBPipeline implements Pipeline {
             DBUtils dbUtils = DBUtils.instance();
             SqlSession session = dbUtils.getSqlSession();
             ProxyMapper mapper = dbUtils.getMapper(ProxyMapper.class, session);
-            List<Proxy> proxyList = (List<Proxy>) resultItems.get("ips");
+            List<Proxy> proxyList = (List<Proxy>) resultItems.get(ProxyTask.IPS);
             if (null != proxyList) {
                 for (Proxy proxy : proxyList) {
                     mapper.insert(proxy);

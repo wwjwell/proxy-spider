@@ -10,9 +10,11 @@ import java.io.Serializable;
  CREATE TABLE `proxy` (
  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
  `host` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'host',
+ `remark` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'remark',
  `port` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'port',
  `status` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '状态，0 无效，1有效',
- PRIMARY KEY (`id`)
+ PRIMARY KEY (`id`),
+ UNIQUE INDEX `u_idx_proxy` (`host`, `port`)
  )
  COMMENT='proxy'
  default charset utf8
@@ -23,6 +25,7 @@ public class Proxy implements Serializable {
     private String host;
     private int port;
     private int status;
+    private String remark="";
 
     public int getId() {
         return id;
@@ -54,5 +57,13 @@ public class Proxy implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

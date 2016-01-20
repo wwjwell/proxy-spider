@@ -26,7 +26,7 @@ public class ProxyCheck{
     public static boolean checkProxy(Proxy proxy) {
         boolean result = false;
         CloseableHttpClient  client = HttpClients.createDefault();
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(10000).build();//设置请求和传输超时时间
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();//设置请求和传输超时时间
 
         HttpHost host = new HttpHost(proxy.getHost(), proxy.getPort());
         HttpGet get = new HttpGet();
@@ -57,17 +57,19 @@ public class ProxyCheck{
         ProxyMapper mapper = db.getMapper(ProxyMapper.class, session);
         if(!ProxyCheck.checkProxy(proxy)){
             mapper.delete(proxy.getId());
-            session.commit();
             System.err.println(proxy.getHost()+":"+proxy.getPort()+" fail!");
 
         }else {
+            proxy.setStatus(1);
+            mapper.update(proxy);
             System.out.println(proxy.getHost()+":"+proxy.getPort()+" OK!");
         }
+        session.commit();
         db.closeSqlSession(session);
     }
 
     public static void check() {
-        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5,20,2, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(15,50,2, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
         DBUtils db = DBUtils.instance();
         SqlSession session = db.getSqlSession();
         ProxyMapper mapper = db.getMapper(ProxyMapper.class, session);
