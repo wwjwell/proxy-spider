@@ -28,7 +28,7 @@ public class DBPipeline implements Pipeline {
                 }
             }
             session.commit();
-            dbUtils.closeSqlSession();
+            dbUtils.closeSqlSession(session);
         }
     }
 }

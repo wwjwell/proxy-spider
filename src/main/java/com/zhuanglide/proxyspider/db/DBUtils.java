@@ -16,7 +16,6 @@ import java.io.Reader;
  */
 public class DBUtils {
     private static DBUtils utils;
-    private static ThreadLocal<SqlSession> threadLocal = new ThreadLocal<SqlSession>();
 
     public SqlSessionFactory sessionFactory;
     private DBUtils(){
@@ -47,17 +46,11 @@ public class DBUtils {
         config.addMapper(ProxyMapper.class);
     }
 
-    public synchronized SqlSession getSqlSession(){
-        SqlSession sqlSession = threadLocal.get();
-        if(null == sqlSession){
-            sqlSession = sessionFactory.openSession();
-            threadLocal.set(sqlSession);
-        }
-        return sqlSession;
+    public SqlSession getSqlSession(){
+        return sessionFactory.openSession();
     }
 
-    public synchronized void closeSqlSession(){
-        SqlSession sqlSession = threadLocal.get();
+    public void closeSqlSession(SqlSession sqlSession){
         if (null != sqlSession) {
             sqlSession.close();
         }
@@ -78,6 +71,6 @@ public class DBUtils {
         proxy.setPort(80);
         proxyMapper.insert(proxy);
         session.commit();
-        dbUtils.closeSqlSession();
+        dbUtils.closeSqlSession(session);
     }
 }
