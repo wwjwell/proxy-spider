@@ -1,5 +1,6 @@
 package com.zhuanglide.proxyspider.db;
 
+import com.zhuanglide.proxyspider.db.mapper.CollegeMapper;
 import com.zhuanglide.proxyspider.db.mapper.Proxy;
 import com.zhuanglide.proxyspider.db.mapper.ProxyMapper;
 import org.apache.ibatis.io.Resources;
@@ -44,6 +45,7 @@ public class DBUtils {
     private void init(){
         Configuration config = sessionFactory.getConfiguration();
         config.addMapper(ProxyMapper.class);
+        config.addMapper(CollegeMapper.class);
     }
 
     public SqlSession getSqlSession(){
