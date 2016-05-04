@@ -1,5 +1,6 @@
 package com.zhuanglide.proxyspider;
 
+import com.zhuanglide.proxyspider.task.CollegeDetailTask;
 import com.zhuanglide.proxyspider.task.impl.CollegeTask;
 import com.zhuanglide.proxyspider.task.impl.XiciTask;
 import com.zhuanglide.proxyspider.task.impl.YouDailiTask;
@@ -13,6 +14,6 @@ public class Main {
 //        new XiciTask().run();
 //        new YouDailiTask().run();
 //        ProxyCheck.check();
-        new CollegeTask().run();
+        new CollegeDetailTask().run();
     }
 }

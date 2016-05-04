@@ -9,6 +9,7 @@ public class College {
     public int num;
     public String name;
     public String href;
+    public String city;
     public String logo;
     public int is211;
     public int is985;
@@ -75,5 +76,13 @@ public class College {
 
     public void setIs985(int is985) {
         this.is985 = is985;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
